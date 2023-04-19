@@ -8,6 +8,13 @@
 import SwiftUI
 
 struct TriviaView: View {
+    // MARK: Stored properties
+    
+    @State var punchlineOpacity = 0.0
+    
+    
+    
+    
     var body: some View {
         NavigationView{
             VStack{
@@ -16,7 +23,7 @@ struct TriviaView: View {
                     .multilineTextAlignment(.center)
                 
                 Button(action: {
-
+                    punchlineOpacity = 1.0
                 }, label: {
                     Image(systemName: "arrow.down.circle.fill")
                         .resizable()
@@ -28,6 +35,7 @@ struct TriviaView: View {
                 Text("Trivia Answer")
                     .font(.title)
                     .multilineTextAlignment(.center)
+                    .opacity(punchlineOpacity)
                 
             }
             .navigationTitle("Trivia")
