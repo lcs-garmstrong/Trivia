@@ -12,18 +12,20 @@ struct TriviaView: View {
     
     @State var punchlineOpacity = 0.0
     
-    
+    @State var currentTrivia = triviaExample
     
     
     var body: some View {
         NavigationView{
             VStack{
-                Text("Trivia Question")
+                Text(currentTrivia.question)
                     .font(.title)
                     .multilineTextAlignment(.center)
                 
                 Button(action: {
-                    punchlineOpacity = 1.0
+                    withAnimation(.easeIn(duration: 1.0)) {
+                        punchlineOpacity = 1.0
+                    }
                 }, label: {
                     Image(systemName: "arrow.down.circle.fill")
                         .resizable()
@@ -32,7 +34,7 @@ struct TriviaView: View {
                         .tint(.black)
                 })
                 
-                Text("Trivia Answer")
+                Text(currentTrivia.correct_answer)
                     .font(.title)
                     .multilineTextAlignment(.center)
                     .opacity(punchlineOpacity)
