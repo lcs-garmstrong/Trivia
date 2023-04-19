@@ -11,6 +11,7 @@
 		972B3C8429F0488F00C1B46C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 972B3C8329F0488F00C1B46C /* Assets.xcassets */; };
 		972B3C8729F0488F00C1B46C /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 972B3C8629F0488F00C1B46C /* Preview Assets.xcassets */; };
 		972B3C8E29F04A3800C1B46C /* TriviaView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 972B3C8D29F04A3800C1B46C /* TriviaView.swift */; };
+		972B3C9229F04AE000C1B46C /* TriviaQuestion.swift in Sources */ = {isa = PBXBuildFile; fileRef = 972B3C9129F04AE000C1B46C /* TriviaQuestion.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -19,6 +20,7 @@
 		972B3C8329F0488F00C1B46C /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		972B3C8629F0488F00C1B46C /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		972B3C8D29F04A3800C1B46C /* TriviaView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TriviaView.swift; sourceTree = "<group>"; };
+		972B3C9129F04AE000C1B46C /* TriviaQuestion.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TriviaQuestion.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -79,6 +81,7 @@
 		972B3C9029F04A4800C1B46C /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				972B3C9129F04AE000C1B46C /* TriviaQuestion.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -154,6 +157,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				972B3C8029F0488C00C1B46C /* TriviaApp.swift in Sources */,
+				972B3C9229F04AE000C1B46C /* TriviaQuestion.swift in Sources */,
 				972B3C8E29F04A3800C1B46C /* TriviaView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

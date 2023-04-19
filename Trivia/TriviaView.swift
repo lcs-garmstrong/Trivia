@@ -9,7 +9,29 @@ import SwiftUI
 
 struct TriviaView: View {
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        NavigationView{
+            VStack{
+                Text("Trivia Question")
+                    .font(.title)
+                    .multilineTextAlignment(.center)
+                
+                Button(action: {
+
+                }, label: {
+                    Image(systemName: "arrow.down.circle.fill")
+                        .resizable()
+                        .scaledToFit()
+                        .frame(width: 40)
+                        .tint(.black)
+                })
+                
+                Text("Trivia Answer")
+                    .font(.title)
+                    .multilineTextAlignment(.center)
+                
+            }
+            .navigationTitle("Trivia")
+        }
     }
 }
 
