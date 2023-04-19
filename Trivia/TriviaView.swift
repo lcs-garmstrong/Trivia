@@ -10,43 +10,53 @@ import SwiftUI
 struct TriviaView: View {
     // MARK: Stored properties
     
-    @State var punchlineOpacity = 0.0
+    @State var correctAnswerOpacity = 0.0
     
-    @State var currentTrivia: TriviaQuestion?
+    // list of trivia questions found by our search
+    @State var foundTrivia: [TriviaQuestion] = []
     
-    
+    // MARK: Computed properties
     var body: some View {
         NavigationView{
             VStack{
-                
-                if let currentTrivia = currentTrivia {
-                    
-                    Text(currentTrivia.question)
-                        .font(.title)
-                        .multilineTextAlignment(.center)
-                    
-                    Button(action: {
-                        withAnimation(.easeIn(duration: 1.0)) {
-                            punchlineOpacity = 1.0
-                        }
-                    }, label: {
-                        Image(systemName: "arrow.down.circle.fill")
-                            .resizable()
-                            .scaledToFit()
-                            .frame(width: 40)
-                            .tint(.black)
-                    })
-                    
-                    Text(currentTrivia.correct_answer)
-                        .font(.title)
-                        .multilineTextAlignment(.center)
-                        .opacity(punchlineOpacity)
-                    
-                } else {
-                    
-                    // show spinning wheel
-                    ProgressView()
+                List(foundTrivia, id: \.question) { currentTrivia in
+                    VStack {
+                        Text(currentTrivia.question)
+                            .bold()
+                        
+                        Button(action: {
+                            correctAnswerOpacity = 1.0
+                        }, label: {
+                            Image(systemName: "arrow.down.circle.fill")
+                                .resizable()
+                                .scaledToFit()
+                                .frame(width: 40)
+                                .tint(.black)
+                        })
+                        
+                        Text(currentTrivia.correct_answer)
+                            .opacity(correctAnswerOpacity)
+                        
+                        
+                    }
                 }
+                .task{
+                    foundTrivia = await NetworkService.fetch()
+                }
+                
+                Button(action: {
+                    // Reset the interface
+                    correctAnswerOpacity = 0.0
+                    
+                    Task {
+                        // Get another joke
+                        foundTrivia = await NetworkService.fetch()
+                    }
+                }, label: {
+                    Text("Next Question")
+                })
+                .buttonStyle(.borderedProminent)
+                
             }
             .navigationTitle("Trivia")
         }
