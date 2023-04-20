@@ -19,10 +19,24 @@ struct TriviaView: View {
     var body: some View {
         NavigationView{
             VStack{
+                
+                // ASK MR GORDON
                 List(foundTrivia, id: \.question) { currentTrivia in
+                
+                    
                     VStack {
                         Text(currentTrivia.question)
-                            .bold()
+                            .multilineTextAlignment(.center)
+                            .font(.title)
+                        
+                        
+                        // Show all 4 multiple choice answers
+                        
+                        //Correct answers
+//                        Text(currentTrivia.correct_answer)
+                        
+                        // Incorrect answers
+                        
                         
                         Button(action: {
                             correctAnswerOpacity = 1.0
@@ -35,11 +49,13 @@ struct TriviaView: View {
                         })
                         
                         Text(currentTrivia.correct_answer)
+                            .font(.title2)
                             .opacity(correctAnswerOpacity)
                         
                         
                     }
                 }
+                .listStyle(.plain)
                 .task{
                     foundTrivia = await NetworkService.fetch()
                 }
@@ -59,6 +75,9 @@ struct TriviaView: View {
                 
             }
             .navigationTitle("Trivia")
+        }
+        .task {
+                foundTrivia = await NetworkService.fetch()
         }
     }
 }
