@@ -115,8 +115,11 @@ struct TriviaView: View {
                         }
                     }
                 }, label: {
-                    Text("Save for later")
+                    Text("Save Question")
                 })
+                .buttonStyle(.borderedProminent)
+                .tint(.green)
+                
                 
             }
             .navigationTitle("Trivia")
