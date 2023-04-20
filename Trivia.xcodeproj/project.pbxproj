@@ -15,6 +15,10 @@
 		972B3C9729F088C400C1B46C /* NetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 972B3C9629F088C400C1B46C /* NetworkService.swift */; };
 		97697A8029F08F940038FBD4 /* SearchResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97697A7F29F08F940038FBD4 /* SearchResult.swift */; };
 		97A18F2129F19ADD004CA4E4 /* Categories.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97A18F2029F19ADD004CA4E4 /* Categories.swift */; };
+		97A18F2429F1AFDF004CA4E4 /* String.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97A18F2329F1AFDF004CA4E4 /* String.swift */; };
+		97CB782329F1E854009FED6D /* Blackbird in Frameworks */ = {isa = PBXBuildFile; productRef = 97CB782229F1E854009FED6D /* Blackbird */; };
+		97CB782529F1EA3A009FED6D /* db.sqlite in Resources */ = {isa = PBXBuildFile; fileRef = 97CB782429F1EA39009FED6D /* db.sqlite */; };
+		97CB782729F1EAD7009FED6D /* AppDatabase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97CB782629F1EAD7009FED6D /* AppDatabase.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -27,6 +31,9 @@
 		972B3C9629F088C400C1B46C /* NetworkService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkService.swift; sourceTree = "<group>"; };
 		97697A7F29F08F940038FBD4 /* SearchResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchResult.swift; sourceTree = "<group>"; };
 		97A18F2029F19ADD004CA4E4 /* Categories.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Categories.swift; sourceTree = "<group>"; };
+		97A18F2329F1AFDF004CA4E4 /* String.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = String.swift; sourceTree = "<group>"; };
+		97CB782429F1EA39009FED6D /* db.sqlite */ = {isa = PBXFileReference; lastKnownFileType = file; path = db.sqlite; sourceTree = "<group>"; };
+		97CB782629F1EAD7009FED6D /* AppDatabase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDatabase.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -34,6 +41,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				97CB782329F1E854009FED6D /* Blackbird in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -61,6 +69,7 @@
 			children = (
 				972B3C7F29F0488C00C1B46C /* TriviaApp.swift */,
 				972B3C9029F04A4800C1B46C /* Model */,
+				97A18F2229F1AFC1004CA4E4 /* Helpers */,
 				972B3C9529F088A900C1B46C /* Services */,
 				972B3C8F29F04A4100C1B46C /* Views */,
 				972B3C8D29F04A3800C1B46C /* TriviaView.swift */,
@@ -91,6 +100,7 @@
 				972B3C9129F04AE000C1B46C /* TriviaQuestion.swift */,
 				97697A7F29F08F940038FBD4 /* SearchResult.swift */,
 				97A18F2029F19ADD004CA4E4 /* Categories.swift */,
+				97CB782429F1EA39009FED6D /* db.sqlite */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -101,6 +111,15 @@
 				972B3C9629F088C400C1B46C /* NetworkService.swift */,
 			);
 			path = Services;
+			sourceTree = "<group>";
+		};
+		97A18F2229F1AFC1004CA4E4 /* Helpers */ = {
+			isa = PBXGroup;
+			children = (
+				97A18F2329F1AFDF004CA4E4 /* String.swift */,
+				97CB782629F1EAD7009FED6D /* AppDatabase.swift */,
+			);
+			path = Helpers;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -119,6 +138,9 @@
 			dependencies = (
 			);
 			name = Trivia;
+			packageProductDependencies = (
+				97CB782229F1E854009FED6D /* Blackbird */,
+			);
 			productName = Trivia;
 			productReference = 972B3C7C29F0488C00C1B46C /* Trivia.app */;
 			productType = "com.apple.product-type.application";
@@ -147,6 +169,9 @@
 				Base,
 			);
 			mainGroup = 972B3C7329F0488C00C1B46C;
+			packageReferences = (
+				97CB782129F1E854009FED6D /* XCRemoteSwiftPackageReference "Blackbird" */,
+			);
 			productRefGroup = 972B3C7D29F0488C00C1B46C /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -162,6 +187,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				972B3C8729F0488F00C1B46C /* Preview Assets.xcassets in Resources */,
+				97CB782529F1EA3A009FED6D /* db.sqlite in Resources */,
 				972B3C8429F0488F00C1B46C /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -175,8 +201,10 @@
 			files = (
 				972B3C8029F0488C00C1B46C /* TriviaApp.swift in Sources */,
 				972B3C9229F04AE000C1B46C /* TriviaQuestion.swift in Sources */,
+				97CB782729F1EAD7009FED6D /* AppDatabase.swift in Sources */,
 				97697A8029F08F940038FBD4 /* SearchResult.swift in Sources */,
 				972B3C9729F088C400C1B46C /* NetworkService.swift in Sources */,
+				97A18F2429F1AFDF004CA4E4 /* String.swift in Sources */,
 				972B3C8E29F04A3800C1B46C /* TriviaView.swift in Sources */,
 				97A18F2129F19ADD004CA4E4 /* Categories.swift in Sources */,
 			);
@@ -379,6 +407,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		97CB782129F1E854009FED6D /* XCRemoteSwiftPackageReference "Blackbird" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/marcoarment/Blackbird";
+			requirement = {
+				branch = main;
+				kind = branch;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		97CB782229F1E854009FED6D /* Blackbird */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 97CB782129F1E854009FED6D /* XCRemoteSwiftPackageReference "Blackbird" */;
+			productName = Blackbird;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 972B3C7429F0488C00C1B46C /* Project object */;
 }

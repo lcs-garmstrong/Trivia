@@ -38,6 +38,16 @@ struct TriviaView: View {
                         }
                                .pickerStyle(.menu)
                                .padding()
+                               .font(.title2)
+                        
+                        
+//                        if let decodedQuestion = String(htmlEncodedString: currentTrivia.question) {
+//                            Text(decodedQuestion)
+//                        } else {
+//                            // Return when faild to decode
+//                            Text("Failed to decode question")
+//                        }
+                        
                         
                         Text(currentTrivia.question)
                             .font(.title)
