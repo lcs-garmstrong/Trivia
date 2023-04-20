@@ -74,7 +74,6 @@
 				97A18F2229F1AFC1004CA4E4 /* Helpers */,
 				972B3C9529F088A900C1B46C /* Services */,
 				972B3C8F29F04A4100C1B46C /* Views */,
-				972B3C8D29F04A3800C1B46C /* TriviaView.swift */,
 				972B3C8329F0488F00C1B46C /* Assets.xcassets */,
 				972B3C8529F0488F00C1B46C /* Preview Content */,
 			);
@@ -93,6 +92,7 @@
 			isa = PBXGroup;
 			children = (
 				97CB782829F1F8E9009FED6D /* SavedTrivia.swift */,
+				972B3C8D29F04A3800C1B46C /* TriviaView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
