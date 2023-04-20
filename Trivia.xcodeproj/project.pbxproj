@@ -19,6 +19,7 @@
 		97CB782329F1E854009FED6D /* Blackbird in Frameworks */ = {isa = PBXBuildFile; productRef = 97CB782229F1E854009FED6D /* Blackbird */; };
 		97CB782529F1EA3A009FED6D /* db.sqlite in Resources */ = {isa = PBXBuildFile; fileRef = 97CB782429F1EA39009FED6D /* db.sqlite */; };
 		97CB782729F1EAD7009FED6D /* AppDatabase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97CB782629F1EAD7009FED6D /* AppDatabase.swift */; };
+		97CB782929F1F8E9009FED6D /* SavedTrivia.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97CB782829F1F8E9009FED6D /* SavedTrivia.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -34,6 +35,7 @@
 		97A18F2329F1AFDF004CA4E4 /* String.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = String.swift; sourceTree = "<group>"; };
 		97CB782429F1EA39009FED6D /* db.sqlite */ = {isa = PBXFileReference; lastKnownFileType = file; path = db.sqlite; sourceTree = "<group>"; };
 		97CB782629F1EAD7009FED6D /* AppDatabase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDatabase.swift; sourceTree = "<group>"; };
+		97CB782829F1F8E9009FED6D /* SavedTrivia.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SavedTrivia.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -90,6 +92,7 @@
 		972B3C8F29F04A4100C1B46C /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				97CB782829F1F8E9009FED6D /* SavedTrivia.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -202,6 +205,7 @@
 				972B3C8029F0488C00C1B46C /* TriviaApp.swift in Sources */,
 				972B3C9229F04AE000C1B46C /* TriviaQuestion.swift in Sources */,
 				97CB782729F1EAD7009FED6D /* AppDatabase.swift in Sources */,
+				97CB782929F1F8E9009FED6D /* SavedTrivia.swift in Sources */,
 				97697A8029F08F940038FBD4 /* SearchResult.swift in Sources */,
 				972B3C9729F088C400C1B46C /* NetworkService.swift in Sources */,
 				97A18F2429F1AFDF004CA4E4 /* String.swift in Sources */,
