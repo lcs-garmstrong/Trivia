@@ -5,6 +5,7 @@
 //  Created by Graeme Armstrong on 2023-04-19.
 //
 
+import Blackbird
 import SwiftUI
 
 struct TriviaView: View {
@@ -99,13 +100,13 @@ struct TriviaView: View {
             foundTrivia = await NetworkService.fetch(resultsFor: selectedCategory)
             
             // Build the list of possible answers
-            if foundTrivia.count > 0 {
-                possibleAnswers = []
-                possibleAnswers.append(foundTrivia.first!.correct_answer)
-                possibleAnswers.append(contentsOf: foundTrivia.first!.incorrect_answers)
-                possibleAnswers.shuffle()
-                print(dump(possibleAnswers))
-            }
+//            if foundTrivia.count > 0 {
+//                possibleAnswers = []
+//                possibleAnswers.append(foundTrivia.first!.correct_answer)
+//                possibleAnswers.append(contentsOf: foundTrivia.first!.incorrect_answers)
+//                possibleAnswers.shuffle()
+//                print(dump(possibleAnswers))
+//            }
         }
     }
 }
@@ -113,5 +114,6 @@ struct TriviaView: View {
 struct TriviaView_Previews: PreviewProvider {
     static var previews: some View {
         TriviaView()
+            .environment(\.blackbirdDatabase, AppDatabase.instance)
     }
 }
