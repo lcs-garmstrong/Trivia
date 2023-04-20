@@ -19,9 +19,7 @@ struct TriviaView: View {
     @State var possibleAnswers: [String] = []
     
     // Category options
-    let catergoryOptions = ["General Knowledge", "Entertainment: Books", "Entertainment: Film", "Entertainment: Music", "Science: Mathematics", "Sports", "History", "Geography", "Celebrities", "Animals", "Vehicles"]
-    
-    @State var selectedCategory = "General Knowledge"
+    @State var selectedCategory = ""
     
     // MARK: Computed properties
     var body: some View {
@@ -33,9 +31,9 @@ struct TriviaView: View {
                         
                         Picker("Category",
                                selection: $selectedCategory) {
-                            ForEach(catergoryOptions, id: \.self) {currentCategory in
-                                Text("\(currentCategory)")
-                                    .tag(currentCategory)
+                            ForEach(allCategories, id: \.categoryId) {currentCategory in
+                                Text("\(currentCategory.categoryName)")
+                                    .tag(currentCategory.categoryName)
                             }
                         }
                                .pickerStyle(.menu)
@@ -45,11 +43,11 @@ struct TriviaView: View {
                             .font(.title)
                             .multilineTextAlignment(.center)
                             .fixedSize(horizontal: false, vertical: true)
-
+                        
                         
                         // Show all 4 multiple choice answers
                         // DEBUG
-                        Text(dump(possibleAnswers).description)
+//                        Text(dump(possibleAnswers).description)
                         
                         
                         Button(action: {
