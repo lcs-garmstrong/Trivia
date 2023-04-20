@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct TriviaQuestion:  Codable {
+struct TriviaQuestion:  Codable, Hashable {
     
     let category: String
     let difficulty: String

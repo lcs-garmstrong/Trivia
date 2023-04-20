@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct SearchResult: Codable{
+struct SearchResult: Codable, Hashable {
     
     let response_code: Int
     let results: [TriviaQuestion]

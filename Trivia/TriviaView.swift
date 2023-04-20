@@ -21,7 +21,7 @@ struct TriviaView: View {
             VStack{
                 
                 // ASK MR GORDON
-                List(foundTrivia, id: \.question) { currentTrivia in
+                List(foundTrivia, id: \.self) { currentTrivia in
                 
                     
                     VStack {
