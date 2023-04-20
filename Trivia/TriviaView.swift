@@ -15,27 +15,41 @@ struct TriviaView: View {
     // list of trivia questions found by our search
     @State var foundTrivia: [TriviaQuestion] = []
     
+    // List of possible options
+    @State var possibleAnswers: [String] = []
+    
+    // Category options
+    let catergoryOptions = ["General Knowledge", "Entertainment: Books", "Entertainment: Film", "Entertainment: Music", "Science: Mathematics", "Sports", "History", "Geography", "Celebrities", "Animals", "Vehicles"]
+    
+    @State var selectedCategory = "General Knowledge"
+    
     // MARK: Computed properties
     var body: some View {
         NavigationView{
             VStack{
-                
-                // ASK MR GORDON
                 List(foundTrivia, id: \.self) { currentTrivia in
-                
                     
                     VStack {
-                        Text(currentTrivia.question)
-                            .multilineTextAlignment(.center)
-                            .font(.title)
                         
+                        Picker("Category",
+                               selection: $selectedCategory) {
+                            ForEach(catergoryOptions, id: \.self) {currentCategory in
+                                Text("\(currentCategory)")
+                                    .tag(currentCategory)
+                            }
+                        }
+                               .pickerStyle(.menu)
+                               .padding()
+                        
+                        Text(currentTrivia.question)
+                            .font(.title)
+                            .multilineTextAlignment(.center)
+                            .fixedSize(horizontal: false, vertical: true)
+
                         
                         // Show all 4 multiple choice answers
-                        
-                        //Correct answers
-//                        Text(currentTrivia.correct_answer)
-                        
-                        // Incorrect answers
+                        // DEBUG
+                        Text(dump(possibleAnswers).description)
                         
                         
                         Button(action: {
@@ -77,7 +91,16 @@ struct TriviaView: View {
             .navigationTitle("Trivia")
         }
         .task {
-                foundTrivia = await NetworkService.fetch()
+            foundTrivia = await NetworkService.fetch()
+            
+            // Build the list of possible answers
+            if foundTrivia.count > 0 {
+                possibleAnswers = []
+                possibleAnswers.append(foundTrivia.first!.correct_answer)
+                possibleAnswers.append(contentsOf: foundTrivia.first!.incorrect_answers)
+                possibleAnswers.shuffle()
+                print(dump(possibleAnswers))
+            }
         }
     }
 }
