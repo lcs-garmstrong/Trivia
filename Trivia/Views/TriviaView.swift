@@ -117,6 +117,7 @@ struct TriviaView: View {
                 }, label: {
                     Text("Save Question")
                 })
+                .disabled(correctAnswerOpacity == 0.0 ? true : false)
                 .buttonStyle(.borderedProminent)
                 .tint(.green)
                 

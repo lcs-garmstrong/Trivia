@@ -12,8 +12,18 @@ import SwiftUI
 struct TriviaApp: App {
     var body: some Scene {
         WindowGroup {
-            TriviaView()
-                .environment(\.blackbirdDatabase, AppDatabase.instance)
+            TabView {
+                TriviaView()
+                    .tabItem{
+                        Label("Trivia", systemImage: "dice")
+                    }
+                
+                SavedTrivia()
+                    .tabItem{
+                        Label("Saved", systemImage: "square.and.arrow.down")
+                    }
+            }
+            .environment(\.blackbirdDatabase, AppDatabase.instance)
         }
     }
 }

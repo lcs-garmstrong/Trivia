@@ -22,6 +22,11 @@ struct SavedTrivia: View {
                     Text(currentTrivia.question)
                         .bold()
                     Text(currentTrivia.correct_answer)
+                    HStack{
+                        Text("Category:")
+                        Text(currentTrivia.category)
+                    }
+
                 }
             }
             .navigationTitle("Saved Trivia")
