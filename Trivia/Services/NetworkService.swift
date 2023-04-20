@@ -19,10 +19,14 @@ struct NetworkService {
     // in our app. Since this function might take a while to complete
     // this ensures that other parts of our app (like the user interface)
     // won't "freeze up" while this function does it's job.
-    static func fetch() async -> [TriviaQuestion] {
+    static func fetch(resultsFor currentCatergory: Int) async -> [TriviaQuestion] {
         
         // 1. Attempt to create a URL from the address provided
-        let endpoint = "https://opentdb.com/api.php?amount=1&type=multiple"
+        
+        // https://opentdb.com/api.php?amount=10&category=9&type=multiple
+        // &category=\(currentCategory.categoryId)
+        
+        let endpoint = "https://opentdb.com/api.php?amount=1&category=\(currentCatergory)&type=multiple"
         guard let url = URL(string: endpoint) else {
             print("Invalid address for JSON endpoint.")
             return []

@@ -19,7 +19,7 @@ struct TriviaView: View {
     @State var possibleAnswers: [String] = []
     
     // Category options
-    @State var selectedCategory = ""
+    @State var selectedCategory = 0
     
     // MARK: Computed properties
     var body: some View {
@@ -29,11 +29,11 @@ struct TriviaView: View {
                     
                     VStack {
                         
-                        Picker("Category",
+                        Picker("Categories:",
                                selection: $selectedCategory) {
                             ForEach(allCategories, id: \.categoryId) {currentCategory in
                                 Text("\(currentCategory.categoryName)")
-                                    .tag(currentCategory.categoryName)
+                                    .tag(currentCategory.categoryId)
                             }
                         }
                                .pickerStyle(.menu)
@@ -44,11 +44,9 @@ struct TriviaView: View {
                             .multilineTextAlignment(.center)
                             .fixedSize(horizontal: false, vertical: true)
                         
-                        
                         // Show all 4 multiple choice answers
                         // DEBUG
 //                        Text(dump(possibleAnswers).description)
-                        
                         
                         Button(action: {
                             correctAnswerOpacity = 1.0
@@ -64,12 +62,11 @@ struct TriviaView: View {
                             .font(.title2)
                             .opacity(correctAnswerOpacity)
                         
-                        
                     }
                 }
                 .listStyle(.plain)
                 .task{
-                    foundTrivia = await NetworkService.fetch()
+                    foundTrivia = await NetworkService.fetch(resultsFor: selectedCategory)
                 }
                 
                 Button(action: {
@@ -78,7 +75,7 @@ struct TriviaView: View {
                     
                     Task {
                         // Get another joke
-                        foundTrivia = await NetworkService.fetch()
+                        foundTrivia = await NetworkService.fetch(resultsFor: selectedCategory)
                     }
                 }, label: {
                     Text("Next Question")
@@ -89,7 +86,7 @@ struct TriviaView: View {
             .navigationTitle("Trivia")
         }
         .task {
-            foundTrivia = await NetworkService.fetch()
+            foundTrivia = await NetworkService.fetch(resultsFor: selectedCategory)
             
             // Build the list of possible answers
             if foundTrivia.count > 0 {
