@@ -93,8 +93,8 @@
 		972B3C8F29F04A4100C1B46C /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				97CB782829F1F8E9009FED6D /* SavedTrivia.swift */,
 				972B3C8D29F04A3800C1B46C /* TriviaView.swift */,
+				97CB782829F1F8E9009FED6D /* SavedTrivia.swift */,
 				97CB782A29F225E3009FED6D /* SavedTriviaItemView.swift */,
 			);
 			path = Views;
