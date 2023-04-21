@@ -11,6 +11,7 @@ import SwiftUI
 struct TriviaView: View {
     // MARK: Stored properties
     
+    // use to talk to DB
     @Environment(\.blackbirdDatabase) var db: Blackbird.Database?
     
     @State var correctAnswerOpacity = 0.0

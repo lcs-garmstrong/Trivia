@@ -15,34 +15,56 @@ struct SavedTrivia: View {
         try await TriviaQuestion.read(from: db)
     }) var savedTrivia
     
+    // use to talk to DB
+    @Environment(\.blackbirdDatabase) var db: Blackbird.Database?
+    
     var body: some View {
         NavigationView{
             List{
                 
                 ForEach(savedTrivia.results) { currentTrivia in
                     VStack(alignment: .leading) {
-                        Text(currentTrivia.question)
-                            .bold()
-                        Text(currentTrivia.correct_answer)
+                        
                         HStack{
                             Text("Category:")
+                                .bold()
                             Text(currentTrivia.category)
                         }
-
+                        Spacer()
+                        Text(currentTrivia.question)
+                            .font(.title3)
+                            .bold()
+                        
+                        Text(currentTrivia.correct_answer)
+                            .font(.title3)
+                        
                     }
+                    .padding(5)
                 }
                 .onDelete(perform: removeRows)
             }
-            .navigationTitle("Saved Trivia")
+            .navigationTitle("Saved Trivia:")
         }
     }
     
     // MARK: Functions:
     func removeRows(at offsets: IndexSet){
-        
-        for offset in offsets {
-            print(offset)
+        Task{
+            try await db!.transaction { core in
+                var idList = ""
+                for offset in offsets {
+                    idList += "\(savedTrivia.results[offset].id),"
+                }
+                
+                // romove final coma
+                print(idList)
+                idList.removeLast()
+                print(idList)
+                
+                try core.query("DELETE FROM TriviaQuestion WHERE id IN (?)", idList)
+            }
         }
+
     }
 }
 
@@ -51,6 +73,6 @@ struct SavedTrivia_Previews: PreviewProvider {
     static var previews: some View {
         SavedTrivia()
             .environment(\.blackbirdDatabase, AppDatabase.instance)
-
+        
     }
 }
