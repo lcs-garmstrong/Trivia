@@ -20,6 +20,7 @@
 		97CB782529F1EA3A009FED6D /* db.sqlite in Resources */ = {isa = PBXBuildFile; fileRef = 97CB782429F1EA39009FED6D /* db.sqlite */; };
 		97CB782729F1EAD7009FED6D /* AppDatabase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97CB782629F1EAD7009FED6D /* AppDatabase.swift */; };
 		97CB782929F1F8E9009FED6D /* SavedTrivia.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97CB782829F1F8E9009FED6D /* SavedTrivia.swift */; };
+		97CB782B29F225E3009FED6D /* SavedTriviaItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97CB782A29F225E3009FED6D /* SavedTriviaItemView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -36,6 +37,7 @@
 		97CB782429F1EA39009FED6D /* db.sqlite */ = {isa = PBXFileReference; lastKnownFileType = file; path = db.sqlite; sourceTree = "<group>"; };
 		97CB782629F1EAD7009FED6D /* AppDatabase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDatabase.swift; sourceTree = "<group>"; };
 		97CB782829F1F8E9009FED6D /* SavedTrivia.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SavedTrivia.swift; sourceTree = "<group>"; };
+		97CB782A29F225E3009FED6D /* SavedTriviaItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SavedTriviaItemView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -93,6 +95,7 @@
 			children = (
 				97CB782829F1F8E9009FED6D /* SavedTrivia.swift */,
 				972B3C8D29F04A3800C1B46C /* TriviaView.swift */,
+				97CB782A29F225E3009FED6D /* SavedTriviaItemView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -208,6 +211,7 @@
 				97CB782929F1F8E9009FED6D /* SavedTrivia.swift in Sources */,
 				97697A8029F08F940038FBD4 /* SearchResult.swift in Sources */,
 				972B3C9729F088C400C1B46C /* NetworkService.swift in Sources */,
+				97CB782B29F225E3009FED6D /* SavedTriviaItemView.swift in Sources */,
 				97A18F2429F1AFDF004CA4E4 /* String.swift in Sources */,
 				972B3C8E29F04A3800C1B46C /* TriviaView.swift in Sources */,
 				97A18F2129F19ADD004CA4E4 /* Categories.swift in Sources */,

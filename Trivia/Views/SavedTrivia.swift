@@ -10,9 +10,14 @@ import SwiftUI
 
 
 struct SavedTrivia: View {
+    
     // MARK: Stored properties
+    // for searchbar
+    @State var searchText = ""
+    
     @BlackbirdLiveModels({ db in
-        try await TriviaQuestion.read(from: db)
+        try await TriviaQuestion.read(from: db,
+        sqlWhere: "category LIKE ?", "%\(searchText)")
     }) var savedTrivia
     
     // use to talk to DB
@@ -43,6 +48,7 @@ struct SavedTrivia: View {
                 }
                 .onDelete(perform: removeRows)
             }
+            .searchable(text: $searchText)
             .navigationTitle("Saved Trivia:")
         }
     }
