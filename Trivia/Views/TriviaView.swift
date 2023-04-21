@@ -24,6 +24,9 @@ struct TriviaView: View {
     // Category options
     @State var selectedCategory = 0
     
+    // Track whether a trivia question has been saved to database
+    @State var savedToDatabase = false
+    
     // MARK: Computed properties
     var body: some View {
         NavigationView{
@@ -110,6 +113,9 @@ struct TriviaView: View {
                                                    triviaQuestion.category,
                                                    triviaQuestion.question,
                                                    triviaQuestion.correct_answer)
+                                    
+                                    // record if it's been saved to database
+                                    savedToDatabase = true
                                 }
                             }
                         }
@@ -117,7 +123,10 @@ struct TriviaView: View {
                 }, label: {
                     Text("Save Question")
                 })
+                // disable button until correct answer in shown
                 .disabled(correctAnswerOpacity == 0.0 ? true : false)
+                // once saved can't be saved again.
+                .disabled(savedToDatabase == true ? true : false)
                 .buttonStyle(.borderedProminent)
                 .tint(.green)
                 
@@ -126,9 +135,12 @@ struct TriviaView: View {
             .navigationTitle("Trivia")
         }
         .task {
-            foundTrivia = await NetworkService.fetch(resultsFor: selectedCategory)
+            if foundTrivia == nil{
+                foundTrivia = await NetworkService.fetch(resultsFor: selectedCategory)
+            }
             
             // Build the list of possible answers
+            
             //            if foundTrivia.count > 0 {
             //                possibleAnswers = []
             //                possibleAnswers.append(foundTrivia.first!.correct_answer)
