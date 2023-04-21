@@ -17,22 +17,35 @@ struct SavedTrivia: View {
     
     var body: some View {
         NavigationView{
-            List(savedTrivia.results) { currentTrivia in
-                VStack(alignment: .leading) {
-                    Text(currentTrivia.question)
-                        .bold()
-                    Text(currentTrivia.correct_answer)
-                    HStack{
-                        Text("Category:")
-                        Text(currentTrivia.category)
-                    }
+            List{
+                
+                ForEach(savedTrivia.results) { currentTrivia in
+                    VStack(alignment: .leading) {
+                        Text(currentTrivia.question)
+                            .bold()
+                        Text(currentTrivia.correct_answer)
+                        HStack{
+                            Text("Category:")
+                            Text(currentTrivia.category)
+                        }
 
+                    }
                 }
+                .onDelete(perform: removeRows)
             }
             .navigationTitle("Saved Trivia")
         }
     }
+    
+    // MARK: Functions:
+    func removeRows(at offsets: IndexSet){
+        
+        for offset in offsets {
+            print(offset)
+        }
+    }
 }
+
 
 struct SavedTrivia_Previews: PreviewProvider {
     static var previews: some View {

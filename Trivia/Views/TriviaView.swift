@@ -63,7 +63,7 @@ struct TriviaView: View {
                             
                             // Show all 4 multiple choice answers
                             // DEBUG
-                            //                        Text(dump(possibleAnswers).description)
+                            //                     Text(dump(possibleAnswers).description)
                             
                             Button(action: {
                                 correctAnswerOpacity = 1.0
@@ -86,7 +86,6 @@ struct TriviaView: View {
                         foundTrivia = await NetworkService.fetch(resultsFor: selectedCategory)
                     }
                 }
-                
                 
                 Button(action: {
                     // Reset the interface
