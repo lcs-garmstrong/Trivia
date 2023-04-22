@@ -126,7 +126,11 @@ struct TriviaView: View {
                 // disable button until correct answer in shown
                 .disabled(correctAnswerOpacity == 0.0 ? true : false)
                 // once saved can't be saved again.
+                
+                // Why isn't this working??
 //                .disabled(savedToDatabase == true ? true : false)
+                
+                
                 .buttonStyle(.borderedProminent)
                 .tint(.green)
                 
