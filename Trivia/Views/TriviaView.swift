@@ -47,17 +47,17 @@ struct TriviaView: View {
                                    .pickerStyle(.menu)
                                    .padding()
                                    .font(.title2)
-
                             
-                            Text(currentTrivia.question.htmlDecoded)
+//                            Text(currentTrivia.question.htmlDecoded)
+                            
+                            Text(currentTrivia.question)
                                 .font(.title)
                                 .multilineTextAlignment(.center)
                                 .fixedSize(horizontal: false, vertical: true)
                             
                             // Show all 4 multiple choice answers
                             // DEBUG
-                            //
-                            //                                                 Text(dump(possibleAnswers).description)
+                            Text(dump(possibleAnswers).description)
                             
                             Button(action: {
                                 correctAnswerOpacity = 1.0
@@ -89,6 +89,11 @@ struct TriviaView: View {
                     Task {
                         // Get another joke
                         foundTrivia = await NetworkService.fetch(resultsFor: selectedCategory)
+                        
+                            processTrivia()
+                        
+                        savedToDatabase = false
+                        
                     }
                 }, label: {
                     Text("Next Question")
@@ -120,26 +125,22 @@ struct TriviaView: View {
                 // disable button until correct answer in shown
                 .disabled(correctAnswerOpacity == 0.0 ? true : false)
                 // once saved can't be saved again.
-                
-                // Why isn't this working??
                 .disabled(savedToDatabase == true ? true : false)
                 
                 .buttonStyle(.borderedProminent)
                 .tint(.green)
-         
-//                Get a list of all possible answers in random order
-//                    Group {
-//                        if let trivia = foundTrivia {
-//                            if trivia.count > 0 {
-//                                possibleAnswers = []
-//                                possibleAnswers.append(trivia.first!.correct_answer)
-//                                possibleAnswers.append(contentsOf: trivia.first!.incorrect_answers)
-//                                possibleAnswers.shuffle()
-//                                print(dump(possibleAnswers))
-//                            }
-//                        }
-//                    }
-//
+                
+                //                Get a list of all possible answers in random order
+                //                        if let trivia = foundTrivia {
+                //                            if trivia.count > 0 {
+                //                                possibleAnswers = []
+                //                                possibleAnswers.append(trivia.first!.correct_answer)
+                //                                possibleAnswers.append(contentsOf: trivia.first!.incorrect_answers)
+                //                                possibleAnswers.shuffle()
+                //                                print(dump(possibleAnswers))
+                //                            }
+                //                        }
+                
             }
             .navigationTitle("Trivia")
         }
@@ -147,6 +148,16 @@ struct TriviaView: View {
             if foundTrivia == nil{
                 foundTrivia = await NetworkService.fetch(resultsFor: selectedCategory)
             }
+        }
+    }
+    // MARK: Functions
+    func processTrivia() {
+        if let trivia = foundTrivia, trivia.count > 0 {
+            possibleAnswers = []
+            possibleAnswers.append(trivia.first!.correct_answer)
+            possibleAnswers.append(contentsOf: trivia.first!.incorrect_answers)
+            possibleAnswers.shuffle()
+            print(dump(possibleAnswers))
         }
     }
 }
