@@ -14,7 +14,7 @@ struct SavedTriviaItemView: View {
     // use to talk to DB
     @Environment(\.blackbirdDatabase) var db: Blackbird.Database?
     
-    @BlackbirdLiveModels var savedTrivia: Blackbird.LiveResults<TriviaQuestion>
+    @BlackbirdLiveModels var savedTrivia: Blackbird.LiveResults<SavedQuestion>
     
     // MARK: Computed properties
     var body: some View {
@@ -49,7 +49,7 @@ struct SavedTriviaItemView: View {
         
         // initialize live model
         _savedTrivia = BlackbirdLiveModels({ db in
-            try await TriviaQuestion.read(from: db,
+            try await SavedQuestion.read(from: db,
             sqlWhere: "category LIKE ?", "%\(searchText)%")
         })
     }
@@ -69,7 +69,7 @@ struct SavedTriviaItemView: View {
                 idList.removeLast()
                 print(idList)
                 
-                try core.query("DELETE FROM TriviaQuestion WHERE id IN (?)", idList)
+                try core.query("DELETE FROM SavedQuestion WHERE id IN (?)", idList)
             }
         }
     }

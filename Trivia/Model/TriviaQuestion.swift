@@ -5,26 +5,25 @@
 //  Created by Graeme Armstrong on 2023-04-19.
 //
 
-// MARK: Got Part of this code from CHAT GPT
-
-import Blackbird
 import Foundation
 import CryptoKit
 
-struct TriviaQuestion: Hashable, Codable, BlackbirdModel {
-    static let tableName = "TriviaQuestion"
-    static let primaryKey = "id"
+struct TriviaQuestion: Hashable, Codable {
     
-    @BlackbirdColumn var id: String
-    @BlackbirdColumn var category: String
-    @BlackbirdColumn var question: String
-    @BlackbirdColumn var correct_answer: String
+    var id: String
+    var category: String
+    var question: String
+    var correct_answer: String
+    var incorrect_answers: [String]
     
+    // Got Part of this code from CHAT GPT
+    // used to geberate unique string ID
     init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         category = try container.decode(String.self, forKey: .category)
         question = try container.decode(String.self, forKey: .question)
         correct_answer = try container.decode(String.self, forKey: .correct_answer)
+        incorrect_answers = try container.decode([String].self, forKey: .incorrect_answers)
         self.id = ""
         generateId()
     }

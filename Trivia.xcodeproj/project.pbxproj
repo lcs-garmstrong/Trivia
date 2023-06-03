@@ -13,6 +13,7 @@
 		972B3C8E29F04A3800C1B46C /* TriviaView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 972B3C8D29F04A3800C1B46C /* TriviaView.swift */; };
 		972B3C9229F04AE000C1B46C /* TriviaQuestion.swift in Sources */ = {isa = PBXBuildFile; fileRef = 972B3C9129F04AE000C1B46C /* TriviaQuestion.swift */; };
 		972B3C9729F088C400C1B46C /* NetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 972B3C9629F088C400C1B46C /* NetworkService.swift */; };
+		976838542A2A2A5100A459E6 /* SavedQuestion.swift in Sources */ = {isa = PBXBuildFile; fileRef = 976838532A2A2A5100A459E6 /* SavedQuestion.swift */; };
 		97697A8029F08F940038FBD4 /* SearchResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97697A7F29F08F940038FBD4 /* SearchResult.swift */; };
 		97A18F2129F19ADD004CA4E4 /* Categories.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97A18F2029F19ADD004CA4E4 /* Categories.swift */; };
 		97A18F2429F1AFDF004CA4E4 /* String.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97A18F2329F1AFDF004CA4E4 /* String.swift */; };
@@ -31,6 +32,7 @@
 		972B3C8D29F04A3800C1B46C /* TriviaView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TriviaView.swift; sourceTree = "<group>"; };
 		972B3C9129F04AE000C1B46C /* TriviaQuestion.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TriviaQuestion.swift; sourceTree = "<group>"; };
 		972B3C9629F088C400C1B46C /* NetworkService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkService.swift; sourceTree = "<group>"; };
+		976838532A2A2A5100A459E6 /* SavedQuestion.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SavedQuestion.swift; sourceTree = "<group>"; };
 		97697A7F29F08F940038FBD4 /* SearchResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchResult.swift; sourceTree = "<group>"; };
 		97A18F2029F19ADD004CA4E4 /* Categories.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Categories.swift; sourceTree = "<group>"; };
 		97A18F2329F1AFDF004CA4E4 /* String.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = String.swift; sourceTree = "<group>"; };
@@ -103,8 +105,9 @@
 		972B3C9029F04A4800C1B46C /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				972B3C9129F04AE000C1B46C /* TriviaQuestion.swift */,
 				97697A7F29F08F940038FBD4 /* SearchResult.swift */,
+				972B3C9129F04AE000C1B46C /* TriviaQuestion.swift */,
+				976838532A2A2A5100A459E6 /* SavedQuestion.swift */,
 				97A18F2029F19ADD004CA4E4 /* Categories.swift */,
 				97CB782429F1EA39009FED6D /* db.sqlite */,
 			);
@@ -213,6 +216,7 @@
 				972B3C9729F088C400C1B46C /* NetworkService.swift in Sources */,
 				97CB782B29F225E3009FED6D /* SavedTriviaItemView.swift in Sources */,
 				97A18F2429F1AFDF004CA4E4 /* String.swift in Sources */,
+				976838542A2A2A5100A459E6 /* SavedQuestion.swift in Sources */,
 				972B3C8E29F04A3800C1B46C /* TriviaView.swift in Sources */,
 				97A18F2129F19ADD004CA4E4 /* Categories.swift in Sources */,
 			);

@@ -49,13 +49,12 @@ struct TriviaView: View {
                                    .font(.title2)
                             
                             
-                            //                        if let decodedQuestion = String(htmlEncodedString: currentTrivia.question) {
-                            //                            Text(decodedQuestion)
-                            //                        } else {
-                            //                            // Return when faild to decode
-                            //                            Text("Failed to decode question")
-                            //                        }
-                            
+//                            if let decodedQuestion = String(htmlEncodedString: currentTrivia.question) {
+//                                Text(decodedQuestion)
+//                            } else {
+//                                // Return when faild to decode
+//                                Text("Failed to decode question")
+//                            }
                             
                             Text(currentTrivia.question)
                                 .font(.title)
@@ -101,14 +100,14 @@ struct TriviaView: View {
                 })
                 .buttonStyle(.borderedProminent)
                 
-   
+                
                 Button(action:{
                     Task {
                         // Write to database
                         if let triviaQuestions = foundTrivia {
                             try await db!.transaction { core in
                                 for triviaQuestion in triviaQuestions {
-                                    try core.query("INSERT INTO TriviaQuestion (id, category, question, correct_answer) VALUES (?, ?, ?, ?)",
+                                    try core.query("INSERT INTO SavedQuestion (id, category, question, correct_answer) VALUES (?, ?, ?, ?)",
                                                    triviaQuestion.id,
                                                    triviaQuestion.category,
                                                    triviaQuestion.question,
@@ -126,8 +125,9 @@ struct TriviaView: View {
                 // disable button until correct answer in shown
                 .disabled(correctAnswerOpacity == 0.0 ? true : false)
                 // once saved can't be saved again.
+                
                 // Why isn't this working??
-//                .disabled(savedToDatabase == true ? true : false)
+                .disabled(savedToDatabase == true ? true : false)
                 
                 .buttonStyle(.borderedProminent)
                 .tint(.green)
