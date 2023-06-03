@@ -47,23 +47,17 @@ struct TriviaView: View {
                                    .pickerStyle(.menu)
                                    .padding()
                                    .font(.title2)
+
                             
-// This Code was causing app to crash
-//                            if let decodedQuestion = String(htmlEncodedString: currentTrivia.question) {
-//                                Text(decodedQuestion)
-//                            } else {
-//                                // Return when faild to decode
-//                                Text("Failed to decode question")
-//                            }
-                            
-                            Text(currentTrivia.question)
+                            Text(currentTrivia.question.htmlDecoded)
                                 .font(.title)
                                 .multilineTextAlignment(.center)
                                 .fixedSize(horizontal: false, vertical: true)
                             
                             // Show all 4 multiple choice answers
                             // DEBUG
-                            //                     Text(dump(possibleAnswers).description)
+                            //
+                            //                                                 Text(dump(possibleAnswers).description)
                             
                             Button(action: {
                                 correctAnswerOpacity = 1.0
@@ -80,6 +74,7 @@ struct TriviaView: View {
                                 .opacity(correctAnswerOpacity)
                             
                         }
+                        
                     }
                     .listStyle(.plain)
                     .task{
@@ -131,8 +126,20 @@ struct TriviaView: View {
                 
                 .buttonStyle(.borderedProminent)
                 .tint(.green)
-                
-                
+         
+//                Get a list of all possible answers in random order
+//                    Group {
+//                        if let trivia = foundTrivia {
+//                            if trivia.count > 0 {
+//                                possibleAnswers = []
+//                                possibleAnswers.append(trivia.first!.correct_answer)
+//                                possibleAnswers.append(contentsOf: trivia.first!.incorrect_answers)
+//                                possibleAnswers.shuffle()
+//                                print(dump(possibleAnswers))
+//                            }
+//                        }
+//                    }
+//
             }
             .navigationTitle("Trivia")
         }
@@ -140,16 +147,6 @@ struct TriviaView: View {
             if foundTrivia == nil{
                 foundTrivia = await NetworkService.fetch(resultsFor: selectedCategory)
             }
-            
-            // Build the list of possible answers
-            
-//                        if foundTrivia.count > 0 {
-//                            possibleAnswers = []
-//                            possibleAnswers.append(foundTrivia.first!.correct_answer)
-//                            possibleAnswers.append(contentsOf: foundTrivia.first!.incorrect_answers)
-//                            possibleAnswers.shuffle()
-//                            print(dump(possibleAnswers))
-//                        }
         }
     }
 }
