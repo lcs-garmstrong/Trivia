@@ -48,7 +48,7 @@ struct TriviaView: View {
                                    .padding()
                                    .font(.title2)
                             
-                            
+// This Code was causing app to crash
 //                            if let decodedQuestion = String(htmlEncodedString: currentTrivia.question) {
 //                                Text(decodedQuestion)
 //                            } else {
@@ -143,13 +143,13 @@ struct TriviaView: View {
             
             // Build the list of possible answers
             
-            //            if foundTrivia.count > 0 {
-            //                possibleAnswers = []
-            //                possibleAnswers.append(foundTrivia.first!.correct_answer)
-            //                possibleAnswers.append(contentsOf: foundTrivia.first!.incorrect_answers)
-            //                possibleAnswers.shuffle()
-            //                print(dump(possibleAnswers))
-            //            }
+//                        if foundTrivia.count > 0 {
+//                            possibleAnswers = []
+//                            possibleAnswers.append(foundTrivia.first!.correct_answer)
+//                            possibleAnswers.append(contentsOf: foundTrivia.first!.incorrect_answers)
+//                            possibleAnswers.shuffle()
+//                            print(dump(possibleAnswers))
+//                        }
         }
     }
 }

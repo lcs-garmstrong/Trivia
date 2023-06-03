@@ -31,7 +31,7 @@ struct SavedTriviaItemView: View {
                         Spacer()
                         Text(currentTrivia.question)
                             .font(.title3)
-                            .bold()
+                            .bold()             
                         
                         Text(currentTrivia.correct_answer)
                             .font(.title3)
