@@ -28,6 +28,12 @@ struct TriviaView: View {
     // Track whether a trivia question has been saved to database
     @State var savedToDatabase = false
     
+    @State var answerChecked = false
+
+    @State var answerCorrect = false
+    
+    @State var input = ""
+    
     // MARK: Computed properties
     var body: some View {
         NavigationView{
@@ -59,20 +65,56 @@ struct TriviaView: View {
                             // DEBUG
                             Text(dump(possibleAnswers).description)
                             
+                            HStack {
+
+                                ZStack {
+                                    
+                                    // Only show this when the answer was found to be correct
+                                    if answerCorrect == true {
+                                        VStack {
+                                            Image(systemName: "checkmark.circle")
+                                                .foregroundColor(.green)
+                                            Text("CORRECT!")
+                                        }
+                                    }
+                                    
+                                    // Show this when the answer was checked and found to be false
+                                    if answerChecked == true && answerCorrect == false {
+                                        VStack {
+                                            Image(systemName: "x.square")
+                                                .foregroundColor(.red)
+                                            Text("Incorrect. correct answer war \(currentTrivia.correct_answer)")
+                                        }
+                                        
+                                    }
+                                }
+                                
+                                Spacer()
+                                
+                                TextField("input answer",
+                                          text: $input)
+                                    .multilineTextAlignment(.trailing)
+                            }
+                            .padding(.horizontal)
+                            
                             Button(action: {
-                                correctAnswerOpacity = 1.0
-                            }, label: {
-                                Image(systemName: "arrow.down.circle.fill")
-                                    .resizable()
-                                    .scaledToFit()
-                                    .frame(width: 40)
-                                    .tint(.black)
-                            })
-                            
-                            Text(currentTrivia.correct_answer)
-                                .font(.title2)
-                                .opacity(correctAnswerOpacity)
-                            
+                                Task{
+                                    if input == currentTrivia.correct_answer {
+                                        answerCorrect = true
+                                        answerChecked = true
+                                        
+                                        // clear input
+                                    } else {
+                                        answerCorrect = false
+                                        answerChecked = true
+                                        
+                                        // clear imput
+                                    }
+                                }
+                            }) {
+                                Text("Check Answer")
+                            }
+
                         }
                         
                     }
