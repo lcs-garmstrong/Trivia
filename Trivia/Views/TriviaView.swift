@@ -29,7 +29,7 @@ struct TriviaView: View {
     @State var savedToDatabase = false
     
     @State var answerChecked = false
-
+    
     @State var answerCorrect = false
     
     @State var input = ""
@@ -38,23 +38,22 @@ struct TriviaView: View {
     var body: some View {
         NavigationView{
             VStack{
+                Picker("Categories:",
+                       selection: $selectedCategory) {
+                    ForEach(allCategories, id: \.categoryId) {currentCategory in
+                        Text("\(currentCategory.categoryName)")
+                            .tag(currentCategory.categoryId)
+                    }
+                }
+                       .pickerStyle(.menu)
+                       .padding()
+                       .font(.title2)
+                
                 if let trivia = foundTrivia {
                     List(trivia, id: \.self) { currentTrivia in
                         
                         VStack {
-                            
-                            Picker("Categories:",
-                                   selection: $selectedCategory) {
-                                ForEach(allCategories, id: \.categoryId) {currentCategory in
-                                    Text("\(currentCategory.categoryName)")
-                                        .tag(currentCategory.categoryId)
-                                }
-                            }
-                                   .pickerStyle(.menu)
-                                   .padding()
-                                   .font(.title2)
-                            
-//                            Text(currentTrivia.question.htmlDecoded)
+                            //                            Text(currentTrivia.question.htmlDecoded)
                             
                             Text(currentTrivia.question)
                                 .font(.title)
@@ -66,7 +65,7 @@ struct TriviaView: View {
                             Text(dump(possibleAnswers).description)
                             
                             HStack {
-
+                                
                                 ZStack {
                                     
                                     // Only show this when the answer was found to be correct
@@ -74,6 +73,7 @@ struct TriviaView: View {
                                         VStack {
                                             Image(systemName: "checkmark.circle")
                                                 .foregroundColor(.green)
+                                                .font(.title)
                                             Text("CORRECT!")
                                         }
                                     }
@@ -83,7 +83,8 @@ struct TriviaView: View {
                                         VStack {
                                             Image(systemName: "x.square")
                                                 .foregroundColor(.red)
-                                            Text("Incorrect. correct answer war \(currentTrivia.correct_answer)")
+                                                .font(.title)
+                                            Text("Incorrect, correct answer was \(currentTrivia.correct_answer)")
                                         }
                                         
                                     }
@@ -91,30 +92,40 @@ struct TriviaView: View {
                                 
                                 Spacer()
                                 
-                                TextField("input answer",
+                                TextField("Input answer",
                                           text: $input)
-                                    .multilineTextAlignment(.trailing)
+                                .multilineTextAlignment(.trailing)
+                                .font(.title2)
                             }
                             .padding(.horizontal)
                             
-                            Button(action: {
-                                Task{
-                                    if input == currentTrivia.correct_answer {
-                                        answerCorrect = true
-                                        answerChecked = true
-                                        
-                                        // clear input
-                                    } else {
-                                        answerCorrect = false
-                                        answerChecked = true
-                                        
-                                        // clear imput
+                            Spacer()
+                            
+                            HStack {
+                                
+                                Spacer()
+                                
+                                Button(action: {
+                                    Task{
+                                        if input == currentTrivia.correct_answer {
+                                            answerCorrect = true
+                                            answerChecked = true
+                                            
+                                            // clear input
+                                        } else {
+                                            answerCorrect = false
+                                            answerChecked = true
+                                            
+                                            // clear imput
+                                        }
                                     }
+                                }) {
+                                    Image(systemName: "checkmark.circle")
+                                        .foregroundColor(.black)
+                                        .font(.title)
+                                        .bold()
                                 }
-                            }) {
-                                Text("Check Answer")
                             }
-
                         }
                         
                     }
@@ -132,10 +143,15 @@ struct TriviaView: View {
                         // Get another joke
                         foundTrivia = await NetworkService.fetch(resultsFor: selectedCategory)
                         
-                            processTrivia()
+                        processTrivia()
                         
                         savedToDatabase = false
                         
+                        answerChecked = false
+                        
+                        answerCorrect = false
+                        
+                        input = ""
                     }
                 }, label: {
                     Text("Next Question")
@@ -165,23 +181,12 @@ struct TriviaView: View {
                     Text("Save Question")
                 })
                 // disable button until correct answer in shown
-                .disabled(correctAnswerOpacity == 0.0 ? true : false)
+                .disabled(answerChecked == false)
                 // once saved can't be saved again.
                 .disabled(savedToDatabase == true ? true : false)
                 
                 .buttonStyle(.borderedProminent)
                 .tint(.green)
-                
-                //                Get a list of all possible answers in random order
-                //                        if let trivia = foundTrivia {
-                //                            if trivia.count > 0 {
-                //                                possibleAnswers = []
-                //                                possibleAnswers.append(trivia.first!.correct_answer)
-                //                                possibleAnswers.append(contentsOf: trivia.first!.incorrect_answers)
-                //                                possibleAnswers.shuffle()
-                //                                print(dump(possibleAnswers))
-                //                            }
-                //                        }
                 
             }
             .navigationTitle("Trivia")
