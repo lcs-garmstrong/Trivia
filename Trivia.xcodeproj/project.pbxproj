@@ -15,6 +15,7 @@
 		972B3C9729F088C400C1B46C /* NetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 972B3C9629F088C400C1B46C /* NetworkService.swift */; };
 		976838542A2A2A5100A459E6 /* SavedQuestion.swift in Sources */ = {isa = PBXBuildFile; fileRef = 976838532A2A2A5100A459E6 /* SavedQuestion.swift */; };
 		97697A8029F08F940038FBD4 /* SearchResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97697A7F29F08F940038FBD4 /* SearchResult.swift */; };
+		97851B0F2A2E3BC0001F2F6E /* Lottie in Frameworks */ = {isa = PBXBuildFile; productRef = 97851B0E2A2E3BC0001F2F6E /* Lottie */; };
 		97A18F2129F19ADD004CA4E4 /* Categories.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97A18F2029F19ADD004CA4E4 /* Categories.swift */; };
 		97A18F2429F1AFDF004CA4E4 /* String.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97A18F2329F1AFDF004CA4E4 /* String.swift */; };
 		97CB782329F1E854009FED6D /* Blackbird in Frameworks */ = {isa = PBXBuildFile; productRef = 97CB782229F1E854009FED6D /* Blackbird */; };
@@ -48,6 +49,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				97CB782329F1E854009FED6D /* Blackbird in Frameworks */,
+				97851B0F2A2E3BC0001F2F6E /* Lottie in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -149,6 +151,7 @@
 			name = Trivia;
 			packageProductDependencies = (
 				97CB782229F1E854009FED6D /* Blackbird */,
+				97851B0E2A2E3BC0001F2F6E /* Lottie */,
 			);
 			productName = Trivia;
 			productReference = 972B3C7C29F0488C00C1B46C /* Trivia.app */;
@@ -180,6 +183,7 @@
 			mainGroup = 972B3C7329F0488C00C1B46C;
 			packageReferences = (
 				97CB782129F1E854009FED6D /* XCRemoteSwiftPackageReference "Blackbird" */,
+				97851B0D2A2E3BC0001F2F6E /* XCRemoteSwiftPackageReference "lottie-ios" */,
 			);
 			productRefGroup = 972B3C7D29F0488C00C1B46C /* Products */;
 			projectDirPath = "";
@@ -421,6 +425,14 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		97851B0D2A2E3BC0001F2F6E /* XCRemoteSwiftPackageReference "lottie-ios" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/airbnb/lottie-ios";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 4.0.0;
+			};
+		};
 		97CB782129F1E854009FED6D /* XCRemoteSwiftPackageReference "Blackbird" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/marcoarment/Blackbird";
@@ -432,6 +444,11 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		97851B0E2A2E3BC0001F2F6E /* Lottie */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 97851B0D2A2E3BC0001F2F6E /* XCRemoteSwiftPackageReference "lottie-ios" */;
+			productName = Lottie;
+		};
 		97CB782229F1E854009FED6D /* Blackbird */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 97CB782129F1E854009FED6D /* XCRemoteSwiftPackageReference "Blackbird" */;

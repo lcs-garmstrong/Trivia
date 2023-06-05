@@ -14,25 +14,21 @@ struct TriviaView: View {
     // use to talk to DB
     @Environment(\.blackbirdDatabase) var db: Blackbird.Database?
     
-    @State var correctAnswerOpacity = 0.0
-    
+    @State var animationAnswerOpacity = 0.0
     // list of trivia questions found by our search
     @State var foundTrivia: [TriviaQuestion]? = []
-    
     // List of possible options
     @State var possibleAnswers: [String] = []
-    
     // Category options
     @State var selectedCategory = 0
-    
     // Track whether a trivia question has been saved to database
     @State var savedToDatabase = false
+
+    @State var input = ""
     
     @State var answerChecked = false
-    
     @State var answerCorrect = false
-    
-    @State var input = ""
+
     
     // MARK: Computed properties
     var body: some View {
@@ -51,9 +47,9 @@ struct TriviaView: View {
                 
                 if let trivia = foundTrivia {
                     List(trivia, id: \.self) { currentTrivia in
-                        
                         VStack {
-                            //                            Text(currentTrivia.question.htmlDecoded)
+                            
+// Text(currentTrivia.question.htmlDecoded)
                             
                             Text(currentTrivia.question)
                                 .font(.title)
@@ -61,13 +57,10 @@ struct TriviaView: View {
                                 .fixedSize(horizontal: false, vertical: true)
                             
                             // Show all 4 multiple choice answers
-                            // DEBUG
                             Text(dump(possibleAnswers).description)
                             
                             HStack {
-                                
                                 ZStack {
-                                    
                                     // Only show this when the answer was found to be correct
                                     if answerCorrect == true {
                                         VStack {
@@ -77,7 +70,6 @@ struct TriviaView: View {
                                             Text("CORRECT!")
                                         }
                                     }
-                                    
                                     // Show this when the answer was checked and found to be false
                                     if answerChecked == true && answerCorrect == false {
                                         VStack {
@@ -86,7 +78,6 @@ struct TriviaView: View {
                                                 .font(.title)
                                             Text("Incorrect, correct answer was \(currentTrivia.correct_answer)")
                                         }
-                                        
                                     }
                                 }
                                 
@@ -102,7 +93,6 @@ struct TriviaView: View {
                             Spacer()
                             
                             HStack {
-                                
                                 Spacer()
                                 
                                 Button(action: {
@@ -111,12 +101,10 @@ struct TriviaView: View {
                                             answerCorrect = true
                                             answerChecked = true
                                             
-                                            // clear input
+                                            animationAnswerOpacity = 1
                                         } else {
                                             answerCorrect = false
                                             answerChecked = true
-                                            
-                                            // clear imput
                                         }
                                     }
                                 }) {
@@ -127,7 +115,6 @@ struct TriviaView: View {
                                 }
                             }
                         }
-                        
                     }
                     .listStyle(.plain)
                     .task{
@@ -137,27 +124,23 @@ struct TriviaView: View {
                 
                 Button(action: {
                     // Reset the interface
-                    correctAnswerOpacity = 0.0
+                    animationAnswerOpacity = 0.0
+                    input = ""
                     
                     Task {
                         // Get another joke
                         foundTrivia = await NetworkService.fetch(resultsFor: selectedCategory)
                         
-                        processTrivia()
+                        processTriviaAnswers()
                         
                         savedToDatabase = false
-                        
                         answerChecked = false
-                        
                         answerCorrect = false
-                        
-                        input = ""
                     }
                 }, label: {
                     Text("Next Question")
                 })
                 .buttonStyle(.borderedProminent)
-                
                 
                 Button(action:{
                     Task {
@@ -187,7 +170,6 @@ struct TriviaView: View {
                 
                 .buttonStyle(.borderedProminent)
                 .tint(.green)
-                
             }
             .navigationTitle("Trivia")
         }
@@ -197,14 +179,17 @@ struct TriviaView: View {
             }
         }
     }
+    
     // MARK: Functions
-    func processTrivia() {
-        if let trivia = foundTrivia, trivia.count > 0 {
-            possibleAnswers = []
-            possibleAnswers.append(trivia.first!.correct_answer)
-            possibleAnswers.append(contentsOf: trivia.first!.incorrect_answers)
-            possibleAnswers.shuffle()
-            print(dump(possibleAnswers))
+    func processTriviaAnswers() {
+        if let trivia = foundTrivia {
+            if trivia.count > 0 {
+                possibleAnswers = []
+                possibleAnswers.append(trivia.first!.correct_answer)
+                possibleAnswers.append(contentsOf: trivia.first!.incorrect_answers)
+                possibleAnswers.shuffle()
+                print(dump(possibleAnswers))
+            }
         }
     }
 }
