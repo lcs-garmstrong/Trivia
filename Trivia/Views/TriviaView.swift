@@ -122,6 +122,8 @@ struct TriviaView: View {
                     }
                 }
                 
+                LottieView(animationNamed: "107653-trophy")
+                
                 Button(action: {
                     // Reset the interface
                     animationAnswerOpacity = 0.0
