@@ -14,7 +14,7 @@ struct TriviaView: View {
     // use to talk to DB
     @Environment(\.blackbirdDatabase) var db: Blackbird.Database?
     
-    @State var animationAnswerOpacity = 0.0
+    @State var animationOpacity = 0.0
     // list of trivia questions found by our search
     @State var foundTrivia: [TriviaQuestion]? = []
     // List of possible options
@@ -36,9 +36,10 @@ struct TriviaView: View {
             VStack{
                 Picker("Categories:",
                        selection: $selectedCategory) {
-                    ForEach(allCategories, id: \.categoryId) {currentCategory in
+                    ForEach(allCategories, id: \.categoryId) { currentCategory in
                         Text("\(currentCategory.categoryName)")
                             .tag(currentCategory.categoryId)
+                            .font(.title2)
                     }
                 }
                        .pickerStyle(.menu)
@@ -52,12 +53,15 @@ struct TriviaView: View {
 // Text(currentTrivia.question.htmlDecoded)
                             
                             Text(currentTrivia.question)
-                                .font(.title)
+                                .font(.title2)
                                 .multilineTextAlignment(.center)
                                 .fixedSize(horizontal: false, vertical: true)
                             
-                            // Show all 4 multiple choice answers
-                            Text(dump(possibleAnswers).description)
+                            VStack {
+                                ForEach(possibleAnswers, id: \.self) { answer in
+                                    Text(answer)
+                                }
+                            }
                             
                             HStack {
                                 ZStack {
@@ -101,7 +105,7 @@ struct TriviaView: View {
                                             answerCorrect = true
                                             answerChecked = true
                                             
-                                            animationAnswerOpacity = 1
+                                            animationOpacity = 1
                                         } else {
                                             answerCorrect = false
                                             answerChecked = true
@@ -119,14 +123,19 @@ struct TriviaView: View {
                     .listStyle(.plain)
                     .task{
                         foundTrivia = await NetworkService.fetch(resultsFor: selectedCategory)
+                        processTriviaAnswers()
                     }
                 }
                 
+                Spacer()
+                
                 LottieView(animationNamed: "107653-trophy")
+                    .opacity(animationOpacity)
+                    .scaledToFit()
                 
                 Button(action: {
                     // Reset the interface
-                    animationAnswerOpacity = 0.0
+                    animationOpacity = 0.0
                     input = ""
                     
                     Task {
