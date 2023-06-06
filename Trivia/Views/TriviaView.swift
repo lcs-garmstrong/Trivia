@@ -16,7 +16,7 @@ struct TriviaView: View {
     
     @State var animationOpacity = 0.0
     // list of trivia questions found by our search
-    @State var foundTrivia: [TriviaQuestion]? = []
+    @State var foundTrivia: TriviaQuestion? = nil
     // List of possible options
     @State var possibleAnswers: [String] = []
     // Category options
@@ -24,6 +24,9 @@ struct TriviaView: View {
     // Track whether a trivia question has been saved to database
     @State var savedToDatabase = false
 
+    // What answer did the user select?
+    @State var selectedAnswer = ""
+    
     @State var input = ""
     
     @State var answerChecked = false
@@ -47,76 +50,83 @@ struct TriviaView: View {
                        .font(.title2)
                 
                 if let trivia = foundTrivia {
-                    List(trivia, id: \.self) { currentTrivia in
+                    VStack {
+                        
+// Text(currentTrivia.question.htmlDecoded)
+                        
+                        Text(trivia.question)
+                            .font(.title2)
+                            .multilineTextAlignment(.center)
+                            .fixedSize(horizontal: false, vertical: true)
+                        
                         VStack {
                             
-// Text(currentTrivia.question.htmlDecoded)
+                            Text("The user selected: \(selectedAnswer)")
                             
-                            Text(currentTrivia.question)
-                                .font(.title2)
-                                .multilineTextAlignment(.center)
-                                .fixedSize(horizontal: false, vertical: true)
-                            
-                            VStack {
-                                ForEach(possibleAnswers, id: \.self) { answer in
+                            ForEach(possibleAnswers, id: \.self) { answer in
+                                Button(action: {
+                                    selectedAnswer = answer
+                                }, label: {
                                     Text(answer)
-                                }
+                                })
+                                .buttonStyle(.borderedProminent)
+                                
                             }
-                            
-                            HStack {
-                                ZStack {
-                                    // Only show this when the answer was found to be correct
-                                    if answerCorrect == true {
-                                        VStack {
-                                            Image(systemName: "checkmark.circle")
-                                                .foregroundColor(.green)
-                                                .font(.title)
-                                            Text("CORRECT!")
-                                        }
-                                    }
-                                    // Show this when the answer was checked and found to be false
-                                    if answerChecked == true && answerCorrect == false {
-                                        VStack {
-                                            Image(systemName: "x.square")
-                                                .foregroundColor(.red)
-                                                .font(.title)
-                                            Text("Incorrect, correct answer was \(currentTrivia.correct_answer)")
-                                        }
+                        }
+                        
+                        HStack {
+                            ZStack {
+                                // Only show this when the answer was found to be correct
+                                if answerCorrect == true {
+                                    VStack {
+                                        Image(systemName: "checkmark.circle")
+                                            .foregroundColor(.green)
+                                            .font(.title)
+                                        Text("CORRECT!")
                                     }
                                 }
-                                
-                                Spacer()
-                                
-                                TextField("Input answer",
-                                          text: $input)
-                                .multilineTextAlignment(.trailing)
-                                .font(.title2)
+                                // Show this when the answer was checked and found to be false
+                                if answerChecked == true && answerCorrect == false {
+                                    VStack {
+                                        Image(systemName: "x.square")
+                                            .foregroundColor(.red)
+                                            .font(.title)
+                                        Text("Incorrect, correct answer was \(trivia.correct_answer)")
+                                    }
+                                }
                             }
-                            .padding(.horizontal)
                             
                             Spacer()
                             
-                            HStack {
-                                Spacer()
-                                
-                                Button(action: {
-                                    Task{
-                                        if input == currentTrivia.correct_answer {
-                                            answerCorrect = true
-                                            answerChecked = true
-                                            
-                                            animationOpacity = 1
-                                        } else {
-                                            answerCorrect = false
-                                            answerChecked = true
-                                        }
+                            TextField("Input answer",
+                                      text: $input)
+                            .multilineTextAlignment(.trailing)
+                            .font(.title2)
+                        }
+                        .padding(.horizontal)
+                        
+                        Spacer()
+                        
+                        HStack {
+                            Spacer()
+                            
+                            Button(action: {
+                                Task{
+                                    if input == trivia.correct_answer {
+                                        answerCorrect = true
+                                        answerChecked = true
+                                        
+                                        animationOpacity = 1
+                                    } else {
+                                        answerCorrect = false
+                                        answerChecked = true
                                     }
-                                }) {
-                                    Image(systemName: "checkmark.circle")
-                                        .foregroundColor(.black)
-                                        .font(.title)
-                                        .bold()
                                 }
+                            }) {
+                                Image(systemName: "checkmark.circle")
+                                    .foregroundColor(.black)
+                                    .font(.title)
+                                    .bold()
                             }
                         }
                     }
@@ -156,9 +166,8 @@ struct TriviaView: View {
                 Button(action:{
                     Task {
                         // Write to database
-                        if let triviaQuestions = foundTrivia {
+                        if let triviaQuestion = foundTrivia {
                             try await db!.transaction { core in
-                                for triviaQuestion in triviaQuestions {
                                     try core.query("INSERT INTO SavedQuestion (id, category, question, correct_answer) VALUES (?, ?, ?, ?)",
                                                    triviaQuestion.id,
                                                    triviaQuestion.category,
@@ -167,7 +176,6 @@ struct TriviaView: View {
                                     
                                     // record if it's been saved to database
                                     savedToDatabase = true
-                                }
                             }
                         }
                     }
@@ -194,13 +202,12 @@ struct TriviaView: View {
     // MARK: Functions
     func processTriviaAnswers() {
         if let trivia = foundTrivia {
-            if trivia.count > 0 {
+
                 possibleAnswers = []
-                possibleAnswers.append(trivia.first!.correct_answer)
-                possibleAnswers.append(contentsOf: trivia.first!.incorrect_answers)
+                possibleAnswers.append(trivia.correct_answer)
+                possibleAnswers.append(contentsOf: trivia.incorrect_answers)
                 possibleAnswers.shuffle()
                 print(dump(possibleAnswers))
-            }
         }
     }
 }
