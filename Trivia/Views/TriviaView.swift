@@ -79,6 +79,8 @@ struct TriviaView: View {
                                     Text(answer)
                                 })
                                 .buttonStyle(.borderedProminent)
+                                .tint(.pink)
+                                .disabled(answerChecked == true)
                                 
                             }
                         }
@@ -179,7 +181,6 @@ struct TriviaView: View {
     // MARK: Functions
     func processTriviaAnswers() {
         if let trivia = foundTrivia {
-
                 possibleAnswers = []
                 possibleAnswers.append(trivia.correct_answer)
                 possibleAnswers.append(contentsOf: trivia.incorrect_answers)
