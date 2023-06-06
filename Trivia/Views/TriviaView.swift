@@ -178,6 +178,7 @@ struct TriviaView: View {
                 .tint(.green)
             }
             .navigationTitle("Trivia")
+            .padding()
         }
         .task {
             if foundTrivia == nil{
