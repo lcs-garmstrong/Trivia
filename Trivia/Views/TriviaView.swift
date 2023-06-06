@@ -118,6 +118,9 @@ struct TriviaView: View {
                     .task{
                         foundTrivia = await NetworkService.fetch(resultsFor: selectedCategory)
                         processTriviaAnswers()
+                        answerChecked = false
+                        answerCorrect = false
+                        animationOpacity = 0.0
                     }
                 }
                 
