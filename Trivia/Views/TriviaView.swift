@@ -60,12 +60,21 @@ struct TriviaView: View {
                             .fixedSize(horizontal: false, vertical: true)
                         
                         VStack {
-                            
-                            Text("The user selected: \(selectedAnswer)")
-                            
                             ForEach(possibleAnswers, id: \.self) { answer in
                                 Button(action: {
                                     selectedAnswer = answer
+                                    
+                                    Task{
+                                        if selectedAnswer == trivia.correct_answer {
+                                            answerCorrect = true
+                                            answerChecked = true
+                                            
+                                            animationOpacity = 1
+                                        } else {
+                                            answerCorrect = false
+                                            answerChecked = true
+                                        }
+                                    }
                                 }, label: {
                                     Text(answer)
                                 })
@@ -95,40 +104,8 @@ struct TriviaView: View {
                                     }
                                 }
                             }
-                            
-                            Spacer()
-                            
-                            TextField("Input answer",
-                                      text: $input)
-                            .multilineTextAlignment(.trailing)
-                            .font(.title2)
                         }
                         .padding(.horizontal)
-                        
-                        Spacer()
-                        
-                        HStack {
-                            Spacer()
-                            
-                            Button(action: {
-                                Task{
-                                    if input == trivia.correct_answer {
-                                        answerCorrect = true
-                                        answerChecked = true
-                                        
-                                        animationOpacity = 1
-                                    } else {
-                                        answerCorrect = false
-                                        answerChecked = true
-                                    }
-                                }
-                            }) {
-                                Image(systemName: "checkmark.circle")
-                                    .foregroundColor(.black)
-                                    .font(.title)
-                                    .bold()
-                            }
-                        }
                     }
                     .listStyle(.plain)
                     .task{
