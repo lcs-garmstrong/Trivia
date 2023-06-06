@@ -77,9 +77,12 @@ struct TriviaView: View {
                                     }
                                 }, label: {
                                     Text(answer)
+                                        .multilineTextAlignment(.center)
+                                        .fixedSize(horizontal: false, vertical: true)
                                 })
                                 .buttonStyle(.borderedProminent)
-                                .tint(.pink)
+                                .tint(.mint)
+                                // Once an answer is selected buttons are disabled.
                                 .disabled(answerChecked == true)
                                 
                             }
@@ -103,6 +106,8 @@ struct TriviaView: View {
                                             .foregroundColor(.red)
                                             .font(.title)
                                         Text("Incorrect, correct answer was \(trivia.correct_answer)")
+                                            .multilineTextAlignment(.center)
+                                            .fixedSize(horizontal: false, vertical: true)
                                     }
                                 }
                             }
