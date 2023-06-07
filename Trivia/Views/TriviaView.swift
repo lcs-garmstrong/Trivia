@@ -77,6 +77,7 @@ struct TriviaView: View {
                                     }
                                 }, label: {
                                     Text(answer)
+                                        .foregroundColor(.black)
                                         .multilineTextAlignment(.center)
                                         .fixedSize(horizontal: false, vertical: true)
                                 })
