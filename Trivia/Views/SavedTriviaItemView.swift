@@ -28,21 +28,30 @@ struct SavedTriviaItemView: View {
                             Text("Category:")
                                 .bold()
                             Text(currentTrivia.category)
+                                
                         }
+                        .foregroundColor(.blue)
+                        .font(.title3)
+
+                        
                         Spacer()
                         Text(currentTrivia.question)
-                            .font(.title3)
+                            .font(.title2)
                             .bold()             
                         
                         Text(currentTrivia.correct_answer)
                             .font(.title3)
+                            .foregroundColor(.green)
+                            .bold()
                         
+                        Spacer()
                     }
                     .padding(5)
                 }
                 .onDelete(perform: removeRows)
                 
             }
+            .listStyle(.automatic)
     }
     
     // MARK: Initializer(s)

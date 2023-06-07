@@ -18,10 +18,6 @@ struct SavedTrivia: View {
     // use to talk to DB
     @Environment(\.blackbirdDatabase) var db: Blackbird.Database?
     
-    @BlackbirdLiveQuery(tableName: "SavedQuestion", { db in
-        try await db.query("SELECT * FROM category")
-    }) var SavedQuestion
-    
     var body: some View {
         NavigationView{
             VStack{
