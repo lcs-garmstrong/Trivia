@@ -16,6 +16,7 @@ struct SavedTriviaItemView: View {
     
     @BlackbirdLiveModels var savedTrivia: Blackbird.LiveResults<SavedQuestion>
     
+    
     // MARK: Computed properties
     var body: some View {
             List{

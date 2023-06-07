@@ -23,7 +23,7 @@ struct TriviaView: View {
     @State var selectedCategory = 0
     // Track whether a trivia question has been saved to database
     @State var savedToDatabase = false
-
+    
     // What answer did the user select?
     @State var selectedAnswer = ""
     
@@ -51,8 +51,6 @@ struct TriviaView: View {
                 
                 if let trivia = foundTrivia {
                     VStack {
-                        
-// Text(currentTrivia.question.htmlDecoded)
                         
                         Text(trivia.question)
                             .font(.title2)
@@ -156,14 +154,14 @@ struct TriviaView: View {
                         // Write to database
                         if let triviaQuestion = foundTrivia {
                             try await db!.transaction { core in
-                                    try core.query("INSERT INTO SavedQuestion (id, category, question, correct_answer) VALUES (?, ?, ?, ?)",
-                                                   triviaQuestion.id,
-                                                   triviaQuestion.category,
-                                                   triviaQuestion.question,
-                                                   triviaQuestion.correct_answer)
-                                    
-                                    // record if it's been saved to database
-                                    savedToDatabase = true
+                                try core.query("INSERT INTO SavedQuestion (id, category, question, correct_answer) VALUES (?, ?, ?, ?)",
+                                               triviaQuestion.id,
+                                               triviaQuestion.category,
+                                               triviaQuestion.question,
+                                               triviaQuestion.correct_answer)
+                                
+                                // record if it's been saved to database
+                                savedToDatabase = true
                             }
                         }
                     }
@@ -191,11 +189,11 @@ struct TriviaView: View {
     // MARK: Functions
     func processTriviaAnswers() {
         if let trivia = foundTrivia {
-                possibleAnswers = []
-                possibleAnswers.append(trivia.correct_answer)
-                possibleAnswers.append(contentsOf: trivia.incorrect_answers)
-                possibleAnswers.shuffle()
-                print(dump(possibleAnswers))
+            possibleAnswers = []
+            possibleAnswers.append(trivia.correct_answer)
+            possibleAnswers.append(contentsOf: trivia.incorrect_answers)
+            possibleAnswers.shuffle()
+            print(dump(possibleAnswers))
         }
     }
 }
